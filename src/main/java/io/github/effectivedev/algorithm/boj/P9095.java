@@ -3,9 +3,8 @@ package io.github.effectivedev.algorithm.boj;
 import java.util.Scanner;
 
 /**
- * BOJ 9095 - 1,2,3 더하기
- *
- * @see https://www.acmicpc.net/problem/9095
+ * BOJ 9095 1,2,3 더하기
+ * https://www.acmicpc.net/problem/9095
  * @author effectivedev
  */
 public class P9095 {

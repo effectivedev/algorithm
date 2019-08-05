@@ -3,9 +3,8 @@ package io.github.effectivedev.algorithm.boj;
 import java.util.Scanner;
 
 /**
- * 백준 온라인 저지 1712번 (손익분기점) 문제풀이
- *
- * @see https://www.acmicpc.net/problem/1712
+ * BOJ 1712 손익분기점
+ * https://www.acmicpc.net/problem/1712
  * @author effectivedev
  */
 public class P1712 {
