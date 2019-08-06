@@ -1,8 +1,9 @@
 package io.github.effectivedev.algorithm.boj;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 /**
  * BOJ 2798 블랙잭
@@ -11,49 +12,35 @@ import java.util.Scanner;
  * @author effectivedev
  */
 public class P2798 {
-    static int max = 0;
-    static int m =0;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        m = sc.nextInt();
-        List<Integer> list = new ArrayList<>();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] fLine = br.readLine().split("\\s");
+        int n = Integer.parseInt(fLine[0]);
+        int m = Integer.parseInt(fLine[1]);
+
+        String[] sLine = br.readLine().split("\\s");
+        int[] cards = new int[n];
+
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            if(num <m){
-                list.add(num);
+            cards[i] = Integer.parseInt(sLine[i]);
+        }
+        Arrays.sort(cards);
+        int length = sLine.length;
+        int max = -1;
+        for (int i = 0; i < length - 2; i++) {
+            for (int j = i + 1; j < length - 1; j++) {
+                for (int k = j + 1; k < length; k++) {
+                    if (cards[i] - 2 > m) {
+                        break;
+                    }
+                    int sum = cards[i] + cards[j] + cards[k];
+                    if (sum >= max && sum <= m) {
+                        max = sum;
+                    }
+                }
             }
         }
-        int[] arr = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            arr[i] = list.get(i);
-        }
-        calcCombination(arr, arr.length, 3);
         System.out.println(max);
-    }
-    static void combinationUtil(int arr[], int data[], int start,
-                                int end, int index, int r)
-    {
-        if (index == r)
-        {
-            int sum = 0;
-            for (int j=0; j<r; j++){
-                sum += data[j];
-            }
-            if(sum > max && sum<= m){
-                max = sum;
-            }
-            return;
-        }
-        for (int i=start; i<=end && end-i+1 >= r-index; i++)
-        {
-            data[index] = arr[i];
-            combinationUtil(arr, data, i+1, end, index+1, r);
-        }
-    }
-    static void calcCombination(int arr[], int n, int r)
-    {
-        int data[]=new int[r];
-        combinationUtil(arr, data, 0, n-1, 0, r);
     }
 }
