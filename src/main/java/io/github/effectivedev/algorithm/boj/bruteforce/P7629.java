@@ -28,7 +28,7 @@ public class P7629 {
         Integer[] sortedHeights = Arrays.copyOf(heights, heights.length);
         Arrays.sort(sortedHeights, Collections.reverseOrder());
 
-        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+        Integer[] rankSum = new Integer[cnt];
         for (int i = 0; i < cnt; i++) {
             int wRank = 0;
             int hRank = 0;
@@ -44,12 +44,19 @@ public class P7629 {
                     hRank = j+1;
                 }
             }
-            Integer[] rankSum = new Integer[cnt];
+            rankSum = new Integer[cnt];
             for (int j = 0; j < cnt; j++) {
                 rankSum[j] = wRank+hRank;
             }
-
-            Arrays.stream(rankSum).forEach(System.out::println);
+        }
+        Integer[] sortedRankSum = Arrays.copyOf(rankSum,rankSum.length);
+        Arrays.sort(sortedRankSum);
+        System.out.println(sortedRankSum);
+        for (int i = 0; i < cnt ; i++) {
+            Integer r = rankSum[i];
+            if(r == sortedRankSum[i]){
+                System.out.println(i+1);
+            }
         }
     }
 }
