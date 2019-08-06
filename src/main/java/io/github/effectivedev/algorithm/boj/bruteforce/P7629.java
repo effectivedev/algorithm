@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class P7629 {
     public static void main(String[] args) throws IOException {
@@ -23,40 +20,42 @@ public class P7629 {
             weights[i] = Integer.parseInt(weight);
             heights[i] = Integer.parseInt(height);
         }
-        Integer[] sortedWeights = Arrays.copyOf(weights, weights.length);
-        Arrays.sort(sortedWeights, Collections.reverseOrder());
-        Integer[] sortedHeights = Arrays.copyOf(heights, heights.length);
-        Arrays.sort(sortedHeights, Collections.reverseOrder());
+        Integer[] weightRank = getRank(weights, "reverse");
+        Integer[] heightRank = getRank(heights, "reverse");
+        Integer[] total = new Integer[cnt];
 
-        Integer[] rankSum = new Integer[cnt];
-        for (int i = 0; i < cnt; i++) {
-            int wRank = 0;
-            int hRank = 0;
-            Integer w = weights[i];
-            for (int j = 0; j < cnt; j++) {
-                if(w == sortedWeights[j]){
-                    wRank = j+1;
-                }
-            }
-            Integer h = heights[i];
-            for (int j = 0; j < cnt; j++) {
-                if(h == sortedHeights[j]){
-                    hRank = j+1;
-                }
-            }
-            rankSum = new Integer[cnt];
-            for (int j = 0; j < cnt; j++) {
-                rankSum[j] = wRank+hRank;
-            }
-        }
-        Integer[] sortedRankSum = Arrays.copyOf(rankSum,rankSum.length);
-        Arrays.sort(sortedRankSum);
-        System.out.println(sortedRankSum);
+        printResult(weightRank);
+        printResult(heightRank);
+    }
+
+    public static void printResult(Integer[] arr) {
+        int cnt = arr.length;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cnt ; i++) {
-            Integer r = rankSum[i];
-            if(r == sortedRankSum[i]){
-                System.out.println(i+1);
+            sb.append(arr[i]+" ");
+        }
+        System.out.println(sb.toString().trim());
+    }
+
+    public static Integer[] getRank(Integer[] integerArr, String order) {
+        Integer[] sortedArr = Arrays.copyOf(integerArr, integerArr.length);
+        if ("forward".equals(order)) {
+            Arrays.sort(sortedArr);
+        } else {
+            Arrays.sort(sortedArr, Collections.reverseOrder());
+        }
+
+        int cnt = integerArr.length;
+        Integer[] rankArr = new Integer[cnt];
+        for (int i = 0; i < cnt; i++) {
+            int num = integerArr[i];
+            for (int j = 0; j < cnt; j++) {
+                if (num == sortedArr[j]) {
+                    rankArr[i] = j + 1;
+                    break;
+                }
             }
         }
+        return rankArr;
     }
 }
