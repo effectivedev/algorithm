@@ -94,13 +94,4 @@ public class P1018 {
         }
         return Math.min(bCnt, wCnt);
     }
-
-    private static void printChess(String[][] chess) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(chess[i][j]);
-            }
-            System.out.println("");
-        }
-    }
 }
