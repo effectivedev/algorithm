@@ -70,7 +70,6 @@ public class P2108 {
                     return o2 - o1;
                 }
             });
-            System.out.println(modeList);
             System.out.println(modeList.get(modeList.size()-2));
         }
         //범위
