@@ -38,8 +38,9 @@ public class P1932 {
         }
         int max = DP[cnt - 1][0];
         for (int i = 1; i < cnt; i++) {
-            if (DP[cnt - 1][i] > max){
-                max = DP[cnt-1][i];
+            int val = DP[cnt - 1][i];
+            if (val > max){
+                max = val;
             }
         }
         System.out.println(max);
