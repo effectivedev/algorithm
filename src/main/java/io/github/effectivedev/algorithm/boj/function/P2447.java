@@ -15,25 +15,56 @@ public class P2447 {
     static StringBuilder sb = new StringBuilder();
     static StringBuilder sb2 = new StringBuilder();
     static StringBuilder sb3 = new StringBuilder();
+
+    private static final String t1= "***************************\n";
+    private static final String t2= "* ** ** ** ** ** ** ** ** *\n";
+    private static final String t3= "***   ******   ******   ***\n";
+    private static final String t4= "* *   * ** *   * ** *   * *\n";
+    private static final String t5= "*********         *********\n";
+    private static final String t6= "* ** ** *         * ** ** *\n";
+    private static final String t7= "***   ***         ***   ***\n";
+    private static final String t8= "* *   * *         * *   * *\n";
+
     static {
-        sb.append("***************************\n").append("* ** ** ** ** ** ** ** ** *\n").append("***************************");
-
-        sb2.append(sb);
-        sb2.append("\n***   ******   ******   ***\n").append("* *   * ** *   * ** *   * *\n").append("***   ******   " +
-                "******   ***\n").append("***************************\n").append("* ** ** ** ** ** ** ** ** *\n").append("***************************");
-
-        sb3.append(sb2);
-        sb3.append("\n*********         *********\n").append("* ** ** *         * ** ** *\n").append("*********      " +
-                "   *********\n").append("***   ***         ***   ***\n").append("* *   * *         * *   * *\n").append("***   ***         ***   ***\n").append("*********         *********\n").append("* ** ** *         * ** ** *\n").append("*********         *********");
-        sb3.append("\n");
-        sb3.append(sb);
+        sb.append(t1).append(t2).append(t1);
+        sb2.append(sb).append(t3).append(t4).append(t3).append(sb);
+        sb3.append(sb2).append(t5).append(t6).append(t5).append(t7).append(t8).append(t7).append(t5).append(t6).append(t5).append(sb2);
     }
 
     public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        br.close();
-        getStar(n);
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int n = Integer.parseInt(br.readLine());
+//        br.close();
+//        getStar(n);
+        System.out.println(sb3);
+        String b= "***************************\n" +
+                "* ** ** ** ** ** ** ** ** *\n" +
+                "***************************\n" +
+                "***   ******   ******   ***\n" +
+                "* *   * ** *   * ** *   * *\n" +
+                "***   ******   ******   ***\n" +
+                "***************************\n" +
+                "* ** ** ** ** ** ** ** ** *\n" +
+                "***************************\n" +
+                "*********         *********\n" +
+                "* ** ** *         * ** ** *\n" +
+                "*********         *********\n" +
+                "***   ***         ***   ***\n" +
+                "* *   * *         * *   * *\n" +
+                "***   ***         ***   ***\n" +
+                "*********         *********\n" +
+                "* ** ** *         * ** ** *\n" +
+                "*********         *********\n" +
+                "***************************\n" +
+                "* ** ** ** ** ** ** ** ** *\n" +
+                "***************************\n" +
+                "***   ******   ******   ***\n" +
+                "* *   * ** *   * ** *   * *\n" +
+                "***   ******   ******   ***\n" +
+                "***************************\n" +
+                "* ** ** ** ** ** ** ** ** *\n" +
+                "***************************\n";
+        System.out.println(sb.equals(b));
     }
 
     private static void getStar(int n) {
@@ -41,20 +72,20 @@ public class P2447 {
         if (n % 27 == 0) {
             for (int i = 0, len = n / 27; i < len; i++) {
                 result.append(sb3).append("\n");
+                n = n-27;
             }
-            n = n / 27;
         }
         if (n % 9 == 0) {
             for (int i = 0, len = n / 9; i < len; i++) {
                 result.append(sb2).append("\n");
+                n= n-9;
             }
-            n = n / 9;
         }
         if (n % 3 == 0) {
             for (int i = 0, len = n / 3; i < len; i++) {
                 result.append(sb).append("\n");
+                n= n-3;
             }
-            n = n / 3;
         }
         System.out.println(result);
     }
