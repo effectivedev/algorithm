@@ -12,81 +12,56 @@ import java.io.InputStreamReader;
  */
 
 public class P2447 {
-    static StringBuilder sb = new StringBuilder();
-    static StringBuilder sb2 = new StringBuilder();
-    static StringBuilder sb3 = new StringBuilder();
-
-    private static final String t1= "***************************\n";
-    private static final String t2= "* ** ** ** ** ** ** ** ** *\n";
-    private static final String t3= "***   ******   ******   ***\n";
-    private static final String t4= "* *   * ** *   * ** *   * *\n";
-    private static final String t5= "*********         *********\n";
-    private static final String t6= "* ** ** *         * ** ** *\n";
-    private static final String t7= "***   ***         ***   ***\n";
-    private static final String t8= "* *   * *         * *   * *\n";
-
-    static {
-        sb.append(t1).append(t2).append(t1);
-        sb2.append(sb).append(t3).append(t4).append(t3).append(sb);
-        sb3.append(sb2).append(t5).append(t6).append(t5).append(t7).append(t8).append(t7).append(t5).append(t6).append(t5).append(sb2);
-    }
 
     public static void main(String args[]) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        int n = Integer.parseInt(br.readLine());
-//        br.close();
-//        getStar(n);
-        System.out.println(sb3);
-        String b= "***************************\n" +
-                "* ** ** ** ** ** ** ** ** *\n" +
-                "***************************\n" +
-                "***   ******   ******   ***\n" +
-                "* *   * ** *   * ** *   * *\n" +
-                "***   ******   ******   ***\n" +
-                "***************************\n" +
-                "* ** ** ** ** ** ** ** ** *\n" +
-                "***************************\n" +
-                "*********         *********\n" +
-                "* ** ** *         * ** ** *\n" +
-                "*********         *********\n" +
-                "***   ***         ***   ***\n" +
-                "* *   * *         * *   * *\n" +
-                "***   ***         ***   ***\n" +
-                "*********         *********\n" +
-                "* ** ** *         * ** ** *\n" +
-                "*********         *********\n" +
-                "***************************\n" +
-                "* ** ** ** ** ** ** ** ** *\n" +
-                "***************************\n" +
-                "***   ******   ******   ***\n" +
-                "* *   * ** *   * ** *   * *\n" +
-                "***   ******   ******   ***\n" +
-                "***************************\n" +
-                "* ** ** ** ** ** ** ** ** *\n" +
-                "***************************\n";
-        System.out.println(sb.equals(b));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        br.close();
+        int star[][] = new int[2187][2187];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == 1 && j == 1) {
+                    star[i][j] = 0;
+                } else {
+                    star[i][j] = 1;
+                }
+            }
+        }
+        for (int i = 1; i < 7; i++) {
+            copyFacade(star, (int) Math.pow(3, i));
+        }
+        printStar(star, n);
+    }
+    private static void copyFacade(int[][] arr, int size) {
+        inArrayCopy(arr, size, 0, size);
+        inArrayCopy(arr, size, size * 2, size);
+        inArrayCopy(arr, 0, size, size);
+        inArrayCopy(arr, 0, size * 2, size);
+        inArrayCopy(arr, size * 2, 0, size);
+        inArrayCopy(arr, size * 2, size, size);
+        inArrayCopy(arr, size * 2, size * 2, size);
+
+    }
+    private static void inArrayCopy(int[][] arr, int m, int n, int size) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                arr[i + m][j + n] = arr[i][j];
+            }
+        }
     }
 
-    private static void getStar(int n) {
-        StringBuilder result = new StringBuilder();
-        if (n % 27 == 0) {
-            for (int i = 0, len = n / 27; i < len; i++) {
-                result.append(sb3).append("\n");
-                n = n-27;
+    private static void printStar(int[][] starArr, int size) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (starArr[i][j] == 1) {
+                    sb.append("*");
+                } else {
+                    sb.append(" ");
+                }
             }
+            sb.append("\n");
         }
-        if (n % 9 == 0) {
-            for (int i = 0, len = n / 9; i < len; i++) {
-                result.append(sb2).append("\n");
-                n= n-9;
-            }
-        }
-        if (n % 3 == 0) {
-            for (int i = 0, len = n / 3; i < len; i++) {
-                result.append(sb).append("\n");
-                n= n-3;
-            }
-        }
-        System.out.println(result);
+        System.out.println(sb);
     }
 }
