@@ -24,14 +24,14 @@ public class P1978 {
             if(num == 1){
                 continue;
             }
-            int dcnt =0;
-            for (int j = 2; j < num/2+1; j++) {
+            boolean isPrime = true;
+            for (int j = 2, len =(int)Math.sqrt(num); j <= len; j++) {
                 if(arr[i] % j ==0){
-                    dcnt++;
+                    isPrime = false;
                     break;
                 }
             }
-            if(dcnt == 0){
+            if(isPrime){
                 cnt++;
             }
         }
