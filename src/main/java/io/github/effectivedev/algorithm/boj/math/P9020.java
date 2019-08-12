@@ -13,9 +13,10 @@ import java.util.*;
  */
 
 public class P9020 {
+    static boolean res[];
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        boolean[] res = eratosthenes();
+        res = eratosthenes();
 
         int n = Integer.parseInt(br.readLine());
         while(n-- >0){
@@ -25,7 +26,7 @@ public class P9020 {
     }
 
     private static boolean[] eratosthenes() {
-        boolean[] res = new boolean[10000+1];
+        res = new boolean[10000+1];
         Arrays.fill(res, true);
         res[0] = false;
         res[1] = false;
@@ -41,6 +42,17 @@ public class P9020 {
     }
 
     private static void getGoldNum(int c) throws IOException {
-        
+        int idx = c/2;
+        for (int i = idx, j = idx; i >=0 && j<=c; i++, j--) {
+            if(res[i] &&res[j]){
+                if(i>j){
+                    System.out.printf("%d %d\n", j, i);
+                }else{
+                    System.out.printf("%d %d\n", i, j);
+                }
+
+                break;
+            }
+        }
     }
 }
