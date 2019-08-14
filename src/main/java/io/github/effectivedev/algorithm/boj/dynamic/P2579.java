@@ -15,21 +15,16 @@ public class P2579 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
-        int[] arr = new int[T+1];
-        int[][] DP = new int[T+1][3];
-        for (int i = 0; i < T ; i++) {
-            arr[i+1] = Integer.parseInt(br.readLine());
+        int[] arr = new int[T + 1];
+        int[] DP = new int[T + 1];
+        for (int i = 1; i <= T; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
         }
-        //DP[POSITION, CNT]
-        DP[0][2] = arr[2];
-        DP[0][1] = arr[1];
-        //2로 끝난 경우
-        for (int i = T; i >=2 ; i--) {
-            DP[i][2] = Math.max(DP[i-2][2] , DP[i-1][1])+ (arr[i-1]+arr[i]);
+        DP[1] = arr[1];
+        DP[2] = arr[1]+arr[2];
+        for (int i = 3; i <= T; i++) {
+           DP[i] = Math.max(DP[i-3]+arr[i-1], DP[i-2])+arr[i];
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(DP[i][2]);
-            System.out.println(DP[i][1]);
-        }
+        System.out.println(DP[T]);
     }
 }
