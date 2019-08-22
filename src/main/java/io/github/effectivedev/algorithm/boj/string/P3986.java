@@ -3,7 +3,6 @@ package io.github.effectivedev.algorithm.boj.string;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 /**
  * 좋은 단어
@@ -13,6 +12,10 @@ import java.util.Arrays;
  */
 
 public class P3986 {
+    private static final char BLANK = '\0';
+    private static final char A = 'A';
+    private static final char B = 'B';
+
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -30,8 +33,10 @@ public class P3986 {
             for (int j = 0; j < length; j++) {
                 result[index++] = word[j];
                 if (index >= 2) {
-                    if (((result[index - 1] == 'A') && (result[index - 2] == 'A')) || ((result[index - 1] == 'B') && (result[index - 2] == 'B'))) {
-                        result[index] = '\0';
+                    char currentChar = result[index - 1];
+                    char prevChar = result[index - 2];
+                    if (((currentChar == A) && (prevChar == A)) || ((currentChar == B) && (prevChar == B))) {
+                        result[index] = BLANK;
                         index = index - 2;
                     }
                 }
@@ -43,3 +48,4 @@ public class P3986 {
         System.out.println(cnt);
     }
 }
+
