@@ -1,4 +1,4 @@
-package io.github.effectivedev.algorithm.boj;
+package io.github.effectivedev.algorithm.boj.math;
 
 import java.util.Scanner;
 
