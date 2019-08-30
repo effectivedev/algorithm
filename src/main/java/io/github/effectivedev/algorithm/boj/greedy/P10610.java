@@ -3,6 +3,10 @@ package io.github.effectivedev.algorithm.boj.greedy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.StringJoiner;
 
 /**
  * 30
@@ -16,21 +20,20 @@ public class P10610 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Integer[] arr = br.readLine().chars().map(i -> i - '0').boxed().toArray(Integer[]::new);
         int length = arr.length;
-        int[] cnt = new int[10];
         int sum = 0;
+        boolean hasZero = false;
         for (int i = 0; i < length; i++) {
             int num = arr[i];
-            cnt[num]++; //숫자별 카운트 세기
             sum += num;
+            if (num == 0 && hasZero == false) {
+                hasZero = true;
+            }
         }
-        //30의 배수 조건
-        if (cnt[0] != 0 && sum % 3 == 0) {
+        if (hasZero && sum % 3 == 0) {
+            Arrays.sort(arr, Collections.reverseOrder());
             StringBuilder sb = new StringBuilder();
-            for (int i = 9; i >= 0; i--) {
-                int count = cnt[i];
-                for (int j = 0; j < count; j++) {
-                    sb.append(i);
-                }
+            for (int i = 0; i < length; i++) {
+                sb.append(arr[i]);
             }
             System.out.println(sb.toString());
         } else {
