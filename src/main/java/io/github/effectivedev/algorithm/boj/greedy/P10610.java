@@ -14,12 +14,12 @@ import java.io.InputStreamReader;
 public class P10610 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Integer[] arr = br.readLine().chars().map(i -> i - '0').boxed().toArray(Integer[]::new);
+        char[] arr = br.readLine().toCharArray();
         int length = arr.length;
         int[] cnt = new int[10];
         int sum = 0;
         for (int i = 0; i < length; i++) {
-            int num = arr[i];
+            int num = arr[i] - '0';
             cnt[num]++; //숫자별 카운트 세기
             sum += num;
         }
