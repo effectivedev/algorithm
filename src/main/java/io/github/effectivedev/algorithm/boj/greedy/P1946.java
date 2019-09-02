@@ -3,8 +3,6 @@ package io.github.effectivedev.algorithm.boj.greedy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
@@ -15,58 +13,44 @@ import java.util.StringTokenizer;
  */
 
 public class P1946 {
-    static int b = 0;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st;
-
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < n; i++) {
-//
-//
-//        }
-//        br.close();
-        int cnt = Integer.parseInt(br.readLine());
-        Person[] pArr = new Person[cnt];
-        for (int j = 0; j < cnt; j++) {
-            st = new StringTokenizer(br.readLine());
-            pArr[j] = new Person();
-            pArr[j].doc = Integer.parseInt(st.nextToken());
-            pArr[j].interview = Integer.parseInt(st.nextToken());
-        }
-        br.close();
-
-        Arrays.sort(pArr, new Comparator<Person>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                if((o1.doc > o2.doc) && (o1.interview > o2.interview)){
-                    b++;
-                    return 1;
-                }
-                else if(((o1.doc > o2.doc) && (o1.interview)<o2.interview) ||  ((o1.doc < o2.doc) && (o1.interview)>o2.interview)){
-                    return 0;
-                }
-                else{
-                    return -1;
+        StringBuilder sb = new StringBuilder();
+        Person[] pArr;
+        boolean[] isFail;
+        int cnt;
+        for (int i = 0; i < n; i++) {
+            cnt = Integer.parseInt(br.readLine());
+            pArr = new Person[cnt];
+            isFail = new boolean[cnt];
+            for (int j = 0; j < cnt; j++) {
+                st = new StringTokenizer(br.readLine());
+                pArr[j] = new Person();
+                pArr[j].doc = Integer.parseInt(st.nextToken());
+                pArr[j].interview = Integer.parseInt(st.nextToken());
+            }
+            for (int j = 0; j < cnt; j++) {
+                for (int k = 0; k < cnt; k++) {
+                    if ((j != k) && !isFail[k] && (pArr[j].doc < pArr[k].doc) && (pArr[j].interview < pArr[k].interview)) {
+                        isFail[k] = true;
+                    }
                 }
             }
-        });
-        System.out.println(b);
-        System.out.println(Arrays.toString(pArr));
-
+            int passCnt = 0;
+            for (int j = 0; j < cnt; j++) {
+                if (!isFail[j]) {
+                    passCnt++;
+                }
+            }
+            sb.append(passCnt).append("\n");
+        }
+        System.out.println(sb.toString());
     }
 
     static class Person {
         int doc;
         int interview;
-
-        @Override
-        public String toString() {
-            return "Person{" +
-                    "doc=" + doc +
-                    ", interview=" + interview +
-                    '}';
-        }
     }
 }
