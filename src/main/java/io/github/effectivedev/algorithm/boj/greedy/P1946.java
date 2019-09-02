@@ -3,6 +3,8 @@ package io.github.effectivedev.algorithm.boj.greedy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
@@ -15,42 +17,36 @@ import java.util.StringTokenizer;
 public class P1946 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        StringTokenizer st;
-        StringBuilder sb = new StringBuilder();
-        Person[] pArr;
-        boolean[] isFail;
+        int t = Integer.parseInt(br.readLine());
         int cnt;
-        for (int i = 0; i < n; i++) {
+        int[] arr;
+        StringTokenizer st;
+        int docRank;
+        int interviewRank;
+        //Doc 순위를 기준을 고정
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < t; i++) {
             cnt = Integer.parseInt(br.readLine());
-            pArr = new Person[cnt];
-            isFail = new boolean[cnt];
+            arr = new int[cnt+1];
             for (int j = 0; j < cnt; j++) {
                 st = new StringTokenizer(br.readLine());
-                pArr[j] = new Person();
-                pArr[j].doc = Integer.parseInt(st.nextToken());
-                pArr[j].interview = Integer.parseInt(st.nextToken());
+                docRank = Integer.parseInt(st.nextToken());
+                interviewRank = Integer.parseInt(st.nextToken());
+                arr[docRank] = interviewRank;
             }
-            for (int j = 0; j < cnt; j++) {
-                for (int k = 0; k < cnt; k++) {
-                    if ((j != k) && !isFail[k] && (pArr[j].doc < pArr[k].doc) && (pArr[j].interview < pArr[k].interview)) {
-                        isFail[k] = true;
-                    }
-                }
-            }
-            int passCnt = 0;
-            for (int j = 0; j < cnt; j++) {
-                if (!isFail[j]) {
-                    passCnt++;
-                }
-            }
-            sb.append(passCnt).append("\n");
+            calc(t, cnt, arr);
         }
-        System.out.println(sb.toString());
     }
 
-    static class Person {
-        int doc;
-        int interview;
+    private static void calc(int n, int cnt, int[] arr) {
+        int max = arr[1];
+        int passCnt = 1;
+        for (int j = 2; j <= cnt; j++) {
+            if(arr[j] < max){
+                passCnt++;
+                max = arr[j];
+            }
+        }
+        System.out.println(passCnt);
     }
 }
