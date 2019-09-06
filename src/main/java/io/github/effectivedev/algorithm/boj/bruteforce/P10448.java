@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  */
 
 public class P10448 {
-    static int count = 0;
+    static boolean hasEureka = false;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
@@ -24,9 +24,9 @@ public class P10448 {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < T; i++) {
-            count = 0;
+            hasEureka = false;
             go(0, Integer.parseInt(br.readLine()), arr, 1,  0);
-            if(count >= 1){
+            if(hasEureka){
                 sb.append(1).append("\n");
             }else{
                 sb.append(0).append("\n");
@@ -36,19 +36,21 @@ public class P10448 {
     }
     private static void go(int sum, int goal, int[] arr, int index,  int cnt){
         if(((sum == goal) && (cnt == 3) || 3*arr[index] == goal)) {
-            count++;
+            hasEureka = true;
             return;
         }else{
             if((sum > goal) || arr[index] > goal || cnt > 3){
                 return;
             }
             else{
-                //선택 1개
-                go(sum+arr[index], goal,  arr, index+1, cnt+1);
-                //선택 2개
-                go(sum+2*arr[index], goal,  arr, index+1, cnt+2);
-                //선택 X
-                go(sum, goal, arr, index+1, cnt);
+                if(!hasEureka){
+                    //선택 1개
+                    go(sum+arr[index], goal,  arr, index+1, cnt+1);
+                    //선택 2개
+                    go(sum+2*arr[index], goal,  arr, index+1, cnt+2);
+                    //선택 X
+                    go(sum, goal, arr, index+1, cnt);
+                }
             }
         }
     }
