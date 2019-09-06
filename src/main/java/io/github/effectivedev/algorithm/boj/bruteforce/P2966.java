@@ -3,7 +3,10 @@ package io.github.effectivedev.algorithm.boj.bruteforce;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -25,22 +28,32 @@ public class P2966 {
         int cntAdrian = 0;
         int cntBruno = 0;
         int cntGolan = 0;
+        int max = 0;
         for (int i = 0; i < n; i++) {
             char real = realAnswerArr[i];
             if(real == getAnswer(i, 0)){
                 cntAdrian++;
+                max = Math.max(max, cntAdrian);
             }
             if(real == getAnswer(i, 1)){
                 cntBruno++;
+                max = Math.max(max, cntBruno);
             }
             if(real == getAnswer(i, 2)){
                 cntGolan++;
+                max = Math.max(max, cntGolan);
             }
         }
-        int[] cntArr = {cntAdrian, cntBruno, cntGolan};
-        int max = Arrays.stream(cntArr).max().getAsInt();
         System.out.println(max);
-        IntStream.range(0, cntArr.length).filter(i -> cntArr[i] == max).mapToObj(i -> person[i]).sorted().forEach(System.out::println);
+        if(max == cntAdrian){
+            System.out.println(person[0]);
+        }
+        if(max == cntBruno){
+            System.out.println(person[1]);
+        }
+        if(max ==cntGolan){
+            System.out.println(person[2]);
+        }
     }
     private static char getAnswer(int n, int type) {
         if (type == 0) {
