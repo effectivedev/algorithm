@@ -1,4 +1,4 @@
-package io.github.effectivedev.algorithm.boj;
+package io.github.effectivedev.algorithm.boj.dfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
