@@ -16,13 +16,32 @@ import java.util.StringTokenizer;
 public class P2565 {
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
         int line[] = new int[501];
         StringTokenizer st = null;
-        for (int i = 0; i < n; i++) {
-            st =new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
             line[Integer.parseInt(st.nextToken())] = Integer.parseInt(st.nextToken());
         }
-        System.out.println(Arrays.toString(line));
+        int arr[] = new int[N + 1];
+        int k = 1;
+        for (int i = 1; i <= 500; i++) {
+            if (line[i] != 0) {
+                arr[k++] = line[i];
+            }
+        }
+        int[] DP = new int[N + 1];
+        DP[1] = 1;
+        int max = DP[1];
+        for (int i = 2; i <= N; i++) {
+            DP[i] = 1;
+            for (int j = 1; j < i; j++) {
+                if (arr[i] > arr[j] && DP[i] <= DP[j]) {
+                    DP[i] = DP[j]+1;
+                }
+            }
+            max = Math.max(DP[i], max);
+        }
+        System.out.println(N-max);
     }
 }
