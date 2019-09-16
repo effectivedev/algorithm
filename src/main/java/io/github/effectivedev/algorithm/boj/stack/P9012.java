@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -20,31 +19,28 @@ public class P9012 {
         int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
-            ArrayList<Character> list = new ArrayList<>();
             String data = br.readLine();
-            for (int j = 0; j < data.length() ; j++) {
-                list.add(data.charAt(j));
-            }
-            while(list.size() != 0){
-                boolean hasVal = false;
-                for (int j = 0; j < list.size()-1; j++) {
-                    if(list.get(j) == '(' && list.get(j+1) == ')'){
-                        list.remove(j);
-                        list.remove(j+1);
-                        hasVal = true;
+            Stack<Character> st = new Stack<>();
+            boolean isVPS = true;
+            for (int j = 0; j < data.length(); j++) {
+                if(data.charAt(j) == '('){
+                    st.push(data.charAt(j));
+                }else{
+                    if(!st.isEmpty()){
+                        st.pop();
+                    }else{
+                        isVPS = false;
+                        break;
                     }
                 }
-                if(!hasVal){
-                    break;
-                }
             }
-            if(list.size() == 0){
-                sb.append("YES");
-            }else{
+            if(!st.isEmpty() || !isVPS){
                 sb.append("NO");
+            }else{
+                sb.append("YES");
             }
             sb.append("\n");
         }
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
