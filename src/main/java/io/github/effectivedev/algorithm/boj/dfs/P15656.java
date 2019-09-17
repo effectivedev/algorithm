@@ -46,16 +46,8 @@ public class P15656 {
             return;
         }else{
             for (int i = 0; i < n; i++) {
-                if(visited[i]){
-                    continue;
-                }
-                if(depth>= 1 && arr[i]< result[depth-1]){
-                    continue;
-                }
                 result[depth] = arr[i];
-                visited[i] = true;
                 dfs(n, m, depth+1);
-                visited[i] = false;
             }
         }
     }
