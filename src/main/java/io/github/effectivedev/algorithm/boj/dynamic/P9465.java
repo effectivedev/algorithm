@@ -3,7 +3,6 @@ package io.github.effectivedev.algorithm.boj.dynamic;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -24,34 +23,27 @@ public class P9465 {
         for (int i = 0; i < T; i++) {
             int cnt = Integer.parseInt(br.readLine());
             arr = new int[2][cnt];
+            DP = new int[2][cnt];
             for (int m = 0; m < 2; m++) {
                 st = new StringTokenizer(br.readLine());
                 for (int n = 0; n < cnt; n++) {
                     arr[m][n] = Integer.parseInt(st.nextToken());
                 }
             }
-            int max = -1;
-            //data input end
-            DP = new int[2][cnt];
             DP[0][0] = arr[0][0];
             DP[1][0] = arr[1][0];
             for (int j = 1; j < cnt; j++) {
-                if(j == 1) {
-                    //위쪽 뜯기로 끝나는 경우
+                if (j == 1) {
                     DP[0][j] = DP[1][j - 1] + arr[0][j];
-                    max = Math.max(DP[0][j], max);
-                    //아래쪽 뜯기로 끝나는 경우
                     DP[1][j] = DP[0][j - 1] + arr[1][j];
-                    max = Math.max(DP[1][j], max);
-                }else{
-                    DP[0][j] = Math.max(DP[1][j-1], Math.max(DP[0][j-2],DP[1][j-2]))+arr[0][j];
-                    max = Math.max(DP[0][j], max);
-                    DP[1][j] = Math.max(DP[0][j-1], Math.max(DP[0][j-2],DP[1][j-2]))+arr[1][j];
-                    max = Math.max(DP[1][j], max);
+                } else {
+                    DP[0][j] = Math.max(DP[1][j - 1], DP[1][j - 2]) + arr[0][j];
+                    DP[1][j] = Math.max(DP[0][j - 1], DP[0][j - 2]) + arr[1][j];
                 }
             }
-            sb.append(max);
+            sb.append(Math.max(DP[0][cnt-1], DP[1][cnt-1]));
             sb.append("\n");
+
         }
         System.out.print(sb);
     }
