@@ -30,7 +30,7 @@ public class P1629 {
             long half = pow(A, B / 2, c);
             long result = half % c * half % c;
             if (B % 2 == 1) {
-                return result % c * (A % c);
+                return (result % c * (A % c)) % c;
             } else {
                 return result % c;
             }
