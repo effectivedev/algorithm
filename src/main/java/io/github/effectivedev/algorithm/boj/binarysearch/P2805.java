@@ -3,7 +3,6 @@ package io.github.effectivedev.algorithm.boj.binarysearch;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -28,6 +27,7 @@ public class P2805 {
         }
         int lo = 0;
         int hi = 1000000000;
+
         int mid = (lo + hi) >> 1;
         while (lo <= hi) {
             long sum = 0;
@@ -36,12 +36,12 @@ public class P2805 {
                     sum += tree[i] - mid;
                 }
             }
-            if(sum >= M){
-                lo = mid+1;
-            }else{
-                hi = mid-1;
+            if (sum >= M) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
             }
-            mid = (lo+hi)  >> 1;
+            mid = (lo + hi) >> 1;
         }
         System.out.println(mid);
 
